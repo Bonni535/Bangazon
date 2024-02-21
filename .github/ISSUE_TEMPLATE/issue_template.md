@@ -1,3 +1,4 @@
+---
 name: ISSUE_TEMPLATE
 about: main template
 title: ''
