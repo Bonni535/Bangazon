@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include=".github\ISSUE_TEMPLATE\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
