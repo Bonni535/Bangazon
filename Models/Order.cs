@@ -9,5 +9,5 @@ public class Order
     public int CustomerId { get; set; }
     public int PaymentTypeId { get; set; }
     public bool OrderStatus { get; set; }
-    public DateTime OrderData { get; set; }
+    public DateTime OrderDate { get; set; }
 }
