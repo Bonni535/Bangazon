@@ -52,5 +52,11 @@ app.MapGet("/api/users/{id}", (BangazonDbContext db, int id) =>
 
     return Results.Ok(userId);
 });
+
+app.MapGet("/api/products", (BangazonDbContext db) =>
+{
+    return db.Products.ToList();
+});
+
 app.Run();
 
