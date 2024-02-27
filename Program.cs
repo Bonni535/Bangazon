@@ -41,5 +41,16 @@ app.MapGet("/api/users", (BangazonDbContext db) =>
     return db.Users.ToList();
 });
 
+app.MapGet("/api/users/{id}", (BangazonDbContext db, int id) =>
+{
+    var userId = db.Users.FirstOrDefault(c => c.Id == id);
+
+    if (userId == null)
+    {
+        return Results.NotFound("User Not Found.");
+    }
+
+    return Results.Ok(userId);
+});
 app.Run();
 
