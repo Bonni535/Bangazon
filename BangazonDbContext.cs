@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Bangazon.Models;
-using System.Runtime.CompilerServices;
 
 public class BangazonDbContext : DbContext
 {
@@ -92,7 +91,7 @@ public class BangazonDbContext : DbContext
             new User {
                 Id = 1,
                 Name = "John Carpenter",
-                Email = "theCarpJohn@gmail.com",
+                Email = "CarpJohn@gmail.com",
                 IsSeller = true
             },
 
