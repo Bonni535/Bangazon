@@ -6,5 +6,5 @@ public class OrderProducts
 {
     public int Id { get; set; }
     public int OrderId { get; set; }
-    public int ProductsId { get; set; }
+    public int ProductId { get; set; }
 }
