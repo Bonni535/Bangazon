@@ -36,14 +36,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+//Get All the Users
 app.MapGet("/api/users", (BangazonDbContext db) =>
 {
     return db.Users.ToList();
 });
 
+//Get a Single User
 app.MapGet("/api/users/{id}", (BangazonDbContext db, int id) =>
 {
-    var userId = db.Users.FirstOrDefault(c => c.Id == id);
+    var userId = db.Users.FirstOrDefault(u => u.Id == id);
 
     if (userId == null)
     {
@@ -53,10 +55,25 @@ app.MapGet("/api/users/{id}", (BangazonDbContext db, int id) =>
     return Results.Ok(userId);
 });
 
+//Get All Products
 app.MapGet("/api/products", (BangazonDbContext db) =>
 {
     return db.Products.ToList();
 });
+
+//Get a Single Product
+app.MapGet("/api/products/{id}", (BangazonDbContext db, int id) =>
+{
+    var productID = db.Products.FirstOrDefault(p => p.Id == id);
+
+    if (productID == null)
+    {
+        return Results.NotFound("Product Not Found.");
+    }
+
+    return Results.Ok(productID);
+});
+
 
 app.Run();
 
