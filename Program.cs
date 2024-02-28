@@ -107,5 +107,21 @@ app.MapGet("/api/orders/{id}", (BangazonDbContext db, int id) =>
 
     return Results.Ok(orderID);
 });
+
+//Update an Order
+app.MapPut("/api/orders/{id}", (BangazonDbContext db, Order order, int id) =>
+{
+    var updateOrder = db.Orders.SingleOrDefault(o => o.Id == id);
+    if (updateOrder == null)
+    {
+        return Results.NotFound();
+    }
+    updateOrder.PaymentTypeId = order.PaymentTypeId;
+    updateOrder.OrderStatus = order.OrderStatus;
+    updateOrder.OrderDate = order.OrderDate;
+    db.SaveChanges();
+    return Results.Ok(updateOrder);
+
+});
 app.Run();
 
