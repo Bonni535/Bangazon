@@ -153,5 +153,11 @@ app.MapPost("/api/users", (BangazonDbContext db, User newUser) =>
     db.SaveChanges();
     return Results.Created($"/api/users/{newUser.Id}", newUser);
 });
+
+//Get All the Categories
+app.MapGet("/api/categories", (BangazonDbContext db) =>
+{
+    return db.Categories.ToList();
+});
 app.Run();
 

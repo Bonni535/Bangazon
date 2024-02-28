@@ -36,7 +36,7 @@ public class BangazonDbContext : DbContext
                 Id = 1,
                 CustomerId = 1,
                 PaymentTypeId = 1,
-                OrderStatus = true,
+                IsCompleted = true,
                 OrderDate = new DateTime(2024, 1, 17)
             },
 
@@ -44,7 +44,7 @@ public class BangazonDbContext : DbContext
                 Id = 2,
                 CustomerId = 1,
                 PaymentTypeId = 2,
-                OrderStatus = false,
+                IsCompleted = false,
                 OrderDate = new DateTime(2024, 2, 8)
             }
         });
