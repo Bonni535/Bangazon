@@ -13,4 +13,6 @@ public class Product
     public int CategoryId { get; set; }
     public DateTime TimePosted { get; set; }
     public int SellerId { get; set; }
+    public List<Category> Category { get; set; }
+    public ICollection<Order> Orders { get; set;}
 }
