@@ -2,6 +2,7 @@ using Bangazon.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Http.Json;
+using Microsoft.AspNetCore.Builder;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -158,6 +159,20 @@ app.MapPost("/api/users", (BangazonDbContext db, User newUser) =>
 app.MapGet("/api/categories", (BangazonDbContext db) =>
 {
     return db.Categories.ToList();
+});
+
+//Get All Products For A Single Category
+app.MapGet("/api/products/by-category", (BangazonDbContext db, int categoryId) =>
+{
+    var productsFilteredByCategory = db.Products.Where(p => p.CategoryId == categoryId).ToList();
+
+    //If a Product doesn't match
+    if (!productsFilteredByCategory.Any())
+    {
+        return Results.NotFound("Unfortunately there are no Products available for this Category.");
+    }
+
+    return Results.Ok(productsFilteredByCategory);
 });
 app.Run();
 
