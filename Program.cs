@@ -132,5 +132,18 @@ app.MapPut("/api/orders/{id}", (BangazonDbContext db, Order order, int id) =>
     return Results.Ok(updateOrder);
 
 });
+
+//Delete a Product From an Order
+app.MapDelete("/api/orderProducts/{id}", (BangazonDbContext db, in id) =>
+{
+    OrderProducts orderProductToDelete = db.OrderProducts.SingleOrDefault(orderProductToDelete => orderProductToDelete.Id == id);
+    if (orderProductToDelete == null)
+    {
+        return Results.NotFound();
+    }
+    db.OrderProducts.Remove(orderProductToDelete);
+    db.SaveChanges();
+    return Results.NoContent();
+});
 app.Run();
 
