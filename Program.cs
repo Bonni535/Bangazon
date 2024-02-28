@@ -94,5 +94,18 @@ app.MapGet("/api/orders", (BangazonDbContext db) =>
 {
     return db.Orders.ToList();
 });
+
+//Get a Single Order
+app.MapGet("/api/orders/{id}", (BangazonDbContext db, int id) =>
+{
+    var orderID = db.Orders.FirstOrDefault(o => o.Id == id);
+
+    if (orderID == null)
+    {
+        return Results.NotFound("Order Not Found.");
+    }
+
+    return Results.Ok(orderID);
+});
 app.Run();
 
