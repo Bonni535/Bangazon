@@ -89,10 +89,19 @@ app.MapPost("/api/orders", (BangazonDbContext db, Order newOrd) =>
     }
 });
 
-//Get All Orders
-app.MapGet("/api/orders", (BangazonDbContext db) =>
+//Get All Orders From a Single User
+app.MapGet("/api/user/{UserId}/order-history", (BangazonDbContext db, int userId) =>
 {
-    return db.Orders.ToList();
+    List<Order> orders = db.Orders
+    .Include(o => o.Products)
+    .Where(o => o.CustomerId == userId && o.IsCompleted == true)
+    .ToList();
+
+    if (orders == null)
+    {
+        return Results.NotFound();
+    }
+    return Results.Ok(orders);
 });
 
 //Get a Single Order
@@ -117,7 +126,7 @@ app.MapPut("/api/orders/{id}", (BangazonDbContext db, Order order, int id) =>
         return Results.NotFound();
     }
     updateOrder.PaymentTypeId = order.PaymentTypeId;
-    updateOrder.OrderStatus = order.OrderStatus;
+    updateOrder.IsCompleted = order.IsCompleted;
     updateOrder.OrderDate = order.OrderDate;
     db.SaveChanges();
     return Results.Ok(updateOrder);
