@@ -88,5 +88,11 @@ app.MapPost("/api/orders", (BangazonDbContext db, Order newOrd) =>
         return Results.BadRequest("Invalid data submitted");
     }
 });
+
+//Get All Orders
+app.MapGet("/api/orders", (BangazonDbContext db) =>
+{
+    return db.Orders.ToList();
+});
 app.Run();
 
