@@ -75,13 +75,13 @@ app.MapGet("/api/products/{id}", (BangazonDbContext db, int id) =>
 });
 
 //Create a New Order
-app.MapPost("/api/orders", (BangazonDbContext db, Order newOrd) =>
+app.MapPost("/api/orderProducts", (BangazonDbContext db, OrderProducts newOrdProd) =>
 {
     try
     {
-        db.Orders.Add(newOrd);
+        db.OrderProducts.Add(newOrdProd);
         db.SaveChanges();
-        return Results.Created($"/api/orders/{newOrd.Id}", newOrd);
+        return Results.Created($"/api/orderProducts/{newOrdProd.Id}", newOrdProd);
     }
     catch (DbUpdateException)
     {
@@ -90,7 +90,7 @@ app.MapPost("/api/orders", (BangazonDbContext db, Order newOrd) =>
 });
 
 //Get All Orders From a Single User
-app.MapGet("/api/user/{UserId}/order-history", (BangazonDbContext db, int userId) =>
+app.MapGet("/api/user/{userId}/order-history", (BangazonDbContext db, int userId) =>
 {
     List<Order> orders = db.Orders
     .Include(o => o.Products)
@@ -134,7 +134,7 @@ app.MapPut("/api/orders/{id}", (BangazonDbContext db, Order order, int id) =>
 });
 
 //Delete a Product From an Order
-app.MapDelete("/api/orderProducts/{id}", (BangazonDbContext db, in id) =>
+app.MapDelete("/api/orderProducts/{id}", (BangazonDbContext db, int id) =>
 {
     OrderProducts orderProductToDelete = db.OrderProducts.SingleOrDefault(orderProductToDelete => orderProductToDelete.Id == id);
     if (orderProductToDelete == null)
@@ -144,6 +144,14 @@ app.MapDelete("/api/orderProducts/{id}", (BangazonDbContext db, in id) =>
     db.OrderProducts.Remove(orderProductToDelete);
     db.SaveChanges();
     return Results.NoContent();
+});
+
+//Create a New User
+app.MapPost("/api/users", (BangazonDbContext db, User newUser) =>
+{
+    db.Users.Add(newUser);
+    db.SaveChanges();
+    return Results.Created($"/api/users/{newUser.Id}", newUser);
 });
 app.Run();
 
