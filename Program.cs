@@ -74,6 +74,19 @@ app.MapGet("/api/products/{id}", (BangazonDbContext db, int id) =>
     return Results.Ok(productID);
 });
 
-
+//Create a New Order
+app.MapPost("/api/orders", (BangazonDbContext db, Order newOrd) =>
+{
+    try
+    {
+        db.Orders.Add(newOrd);
+        db.SaveChanges();
+        return Results.Created($"/api/orders/{newOrd.Id}", newOrd);
+    }
+    catch (DbUpdateException)
+    {
+        return Results.BadRequest("Invalid data submitted");
+    }
+});
 app.Run();
 
