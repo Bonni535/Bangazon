@@ -113,7 +113,7 @@ public class BangazonDbContext : DbContext
 
             new OrderProducts {
                 Id = 2,
-                OrderId = 1,
+                OrderId = 2,
                 ProductId = 2
             }
         });

@@ -76,33 +76,24 @@ app.MapGet("/api/products/{id}", (BangazonDbContext db, int id) =>
 });
 
 //Create a New Order
-app.MapPost("/api/orderProducts", (BangazonDbContext db, OrderProducts newOrdProd) =>
+app.MapPost("/api/orders", (BangazonDbContext db, Order newOrd) =>
 {
-    try
-    {
-        db.OrderProducts.Add(newOrdProd);
+   
+        db.Orders.Add(newOrd);
         db.SaveChanges();
-        return Results.Created($"/api/orderProducts/{newOrdProd.Id}", newOrdProd);
-    }
-    catch (DbUpdateException)
-    {
-        return Results.BadRequest("Invalid data submitted");
-    }
+        return Results.Created($"/api/orders/{newOrd.Id}", newOrd);
 });
 
 //Get All Orders From a Single User
-app.MapGet("/api/user/{userId}/order-history", (BangazonDbContext db, int userId) =>
+app.MapGet("/api/order/by-user", (BangazonDbContext db, int userId) =>
 {
-    List<Order> orders = db.Orders
-    .Include(o => o.Products)
-    .Where(o => o.CustomerId == userId && o.IsCompleted == true)
-    .ToList();
+    var allOrdersForASingleUser = db.Orders.Where(o => o.CustomerId == userId).ToList();
 
-    if (orders == null)
+    if (allOrdersForASingleUser.Any())
     {
         return Results.NotFound();
     }
-    return Results.Ok(orders);
+    return Results.Ok(allOrdersForASingleUser);
 });
 
 //Get a Single Order
