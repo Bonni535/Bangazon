@@ -80,7 +80,7 @@ public class BangazonDbContext : DbContext
                 Description = "The Cord, Socket and Plug of Aooshine bedside table lamp are UL listed. By giving products the listed, you don’t have to worry about the material problem. This Nightstand lamp comes with ON/OFF switch control, easy to install and use. Please note not included bulb. Please use the LED bulb only.",
                 Quantity = 6,
                 PriceUnit = 98.00M,
-                CategoryId = 1,
+                CategoryId = 2,
                 TimePosted = new DateTime(2022, 8, 26),
                 SellerId = 2
             }
