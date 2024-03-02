@@ -109,6 +109,14 @@ app.MapGet("/api/orders/{id}", (BangazonDbContext db, int id) =>
     return Results.Ok(orderID);
 });
 
+//Add a Product To an Order
+app.MapPost("/api/orderProducts", (BangazonDbContext db, OrderProducts newOrdProduct) =>
+{
+    db.OrderProducts.Add(newOrdProduct);
+    db.SaveChanges();
+    return Results.Created($"/api/orderProducts/{newOrdProduct.Id}", newOrdProduct);
+});
+
 //Update an Order
 app.MapPut("/api/orders/{id}", (BangazonDbContext db, Order order, int id) =>
 {
