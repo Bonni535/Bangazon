@@ -10,5 +10,4 @@ public class Order
     public int PaymentTypeId { get; set; }
     public bool IsCompleted { get; set; }
     public DateTime OrderDate { get; set; }
-    public ICollection<Product> Products { get; set; }
 }
