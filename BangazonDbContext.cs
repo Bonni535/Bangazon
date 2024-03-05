@@ -42,7 +42,7 @@ public class BangazonDbContext : DbContext
 
             new Order {
                 Id = 2,
-                CustomerId = 1,
+                CustomerId = 2,
                 PaymentTypeId = 2,
                 IsCompleted = false,
                 OrderDate = new DateTime(2024, 2, 8)
