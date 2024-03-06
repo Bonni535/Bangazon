@@ -128,8 +128,9 @@ app.MapPut("/api/orders/{id}", (BangazonDbContext db, Order order, int id) =>
     updateOrder.PaymentTypeId = order.PaymentTypeId;
     updateOrder.IsCompleted = order.IsCompleted;
     updateOrder.OrderDate = order.OrderDate;
+
     db.SaveChanges();
-    return Results.Ok(updateOrder);
+    return Results.Ok();
 
 });
 
